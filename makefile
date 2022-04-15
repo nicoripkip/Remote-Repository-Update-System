@@ -18,7 +18,7 @@ ifeq ($(OS), Windows_NT)
 	CFLAGS := -I$(HDIR)
 	CLEAN := Remove-Item $(BINDIR)/$(EXECDIR)/$(EXEC)$(EXT) Remove-Item $(BINDIR)/$(OBJDIR)/main.o Remove-Item $(BINDIR)/$(OBJDIR)/auth.o Remove-Item $(BINDIR)/$(OBJDIR)/network.o
 else
-	EXT := .o
+	EXT := .out
 	CFLAGS := -I$(HDIR)
 	CLEAN := rm -r $(BINDIR)/$(EXECDIR)/$(EXEC)$(EXT)
 endif
