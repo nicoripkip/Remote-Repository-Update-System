@@ -1,28 +1,23 @@
+#include <iostream>
 #include <stdio.h>
-#include <string.h>
+#include <string>
+#include <vector>
 
 
 void boot_screen();
-void check_arguments(char *);
+void check_arguments(std::string*);
 
 
+/**
+ * @brief Functie voor het starten van het programma
+ * 
+ * @param argc 
+ * @param argv 
+ * @return int 
+ */
 int main(int argc, char *argv[])
 {
-    int i;
-
-    boot_screen();
-
-    if (argc < 2)
-    {
-        printf("Too few arguments given.....\n");
-    } 
-    else
-    {
-        for (i = 1; i < argc; i++)
-        {
-            // check_arguments(argv[i]);
-        }
-    }
+    printf("test");
 
     return 0;
 }
@@ -34,7 +29,7 @@ int main(int argc, char *argv[])
  */
 void boot_screen()
 {
-    printf("Loading.....\n\n\n");
+    std::cout << "Loading....." << std::endl;
 
     printf("\t      *******   **     **  ********  ********\n \
             /**////** /**    /** **//////  **////// \n \
@@ -55,18 +50,12 @@ void boot_screen()
  * 
  * @param argument 
  */
-void check_arguments(char *argument)
+void check_arguments(std::string *argument)
 {
-    if (strchr(argument, '=') != NULL)
+    if (argument->find("=") != std::string::npos)
     {
-        char *result = strtok(argument, "=");
 
-        while (result != NULL)
-        {
-            printf("i: %s\n", result);
-        }
-
-        printf("Argument: %s has an parameter!\n", argument);
+        std::cout << "[info]\t\tArgument: " << argument << " has a parameter!" << std::endl;
     }
     else
     {

@@ -1,4 +1,4 @@
-CC := gcc
+CC := g++
 
 HDIR := ./headers
 SRCDIR := ./src
@@ -6,17 +6,17 @@ BINDIR := ./bin
 OBJDIR := ./objects
 EXECDIR := ./executable
 
-CFILES := main.c
-AUTHFILES := authentication.c
-NETFILES := network.c
-OBJ := $(BINDIR)/$(OBJDIR)/main.o $(BINDIR)/$(OBJDIR)/auth.o $(BINDIR)/$(OBJDIR)/network.o
+CFILES := main.cpp
+AUTHFILES := authentication.cpp
+NETFILES := network.cpp
+OBJ := $(BINDIR)/$(OBJDIR)/*.o
 EXEC := rrus
 
 
 ifeq ($(OS), Windows_NT)
 	EXT := .exe
 	CFLAGS := -I$(HDIR)
-	CLEAN := Remove-Item $(BINDIR)/$(EXECDIR)/$(EXEC)$(EXT) Remove-Item $(BINDIR)/$(OBJDIR)/main.o Remove-Item $(BINDIR)/$(OBJDIR)/auth.o Remove-Item $(BINDIR)/$(OBJDIR)/network.o
+	CLEAN := Remove-Item $(BINDIR)/$(EXECDIR)/$(EXEC)$(EXT) Remove-Item $(BINDIR)/$(OBJDIR)/*.o
 else
 	EXT := .out
 	CFLAGS := -I$(HDIR)
@@ -24,25 +24,25 @@ else
 endif
 
 
-TARGET := clean main authentication network linker
+TARGET := clean main linker
 
 
 all: $(TARGET)
 
 
-main: $(SRCDIR)/main.c
+main: authentication.o network.o
 	@echo [info] Compile main files
 	$(CC) $(CFLAGS) -c $(SRCDIR)/$(CFILES) -o $(BINDIR)/$(OBJDIR)/main.o
 	@echo [ok] Main files are compiled
 
 
-authentication: 
+authentication.o: 
 	@echo [info] Compile authentication files
 	$(CC) $(CFLAGS) -c $(SRCDIR)/$(AUTHFILES) -o $(BINDIR)/$(OBJDIR)/auth.o
 	@echo [ok] Authentication files are compiled
 
 
-network:
+network.o:
 	@echo [info] Compile network files
 	$(CC) $(CFLAGS) -c $(SRCDIR)/$(NETFILES) -o $(BINDIR)/$(OBJDIR)/network.o
 	@echo [ok] Network files are compiled
