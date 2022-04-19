@@ -1,6 +1,8 @@
 CC := g++
 
-HDIR := ./headers
+LIBDIR := ./libraries/*.so
+HDIR := ./headers 
+LHDIR := ./libraries/distribution/include
 SRCDIR := ./src
 BINDIR := ./bin
 OBJDIR := ./objects
@@ -15,11 +17,11 @@ EXEC := rrus
 
 ifeq ($(OS), Windows_NT)
 	EXT := .exe
-	CFLAGS := -I$(HDIR)
+	CFLAGS := -I$(HDIR) -I$(LHDIR) -L$(LIBDIR) -Wall -std=c++14
 	CLEAN := Remove-Item $(BINDIR)/$(EXECDIR)/$(EXEC)$(EXT) Remove-Item $(BINDIR)/$(OBJDIR)/*.o
 else
 	EXT := .out
-	CFLAGS := -I$(HDIR)
+	CFLAGS := -I$(HDIR) -I$(LHDIR) -L$(LIBDIR) -Wall -std=c++14
 	CLEAN := rm -r $(BINDIR)/$(EXECDIR)/$(EXEC)$(EXT)
 endif
 
@@ -44,7 +46,7 @@ authentication.o:
 
 network.o:
 	@echo [info] Compile network files
-	$(CC) $(CFLAGS) -c $(SRCDIR)/$(NETFILES) -o $(BINDIR)/$(OBJDIR)/network.o
+	$(CC) $(CFLAGS) -c $(SRCDIR)/$(NETFILES) -o $(LIBDIR) $(BINDIR)/$(OBJDIR)/network.o
 	@echo [ok] Network files are compiled
 
 

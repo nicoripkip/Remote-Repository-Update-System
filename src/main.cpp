@@ -17,7 +17,7 @@ void check_arguments(std::string*);
  */
 int main(int argc, char *argv[])
 {
-    printf("test");
+    boot_screen();
 
     return 0;
 }
@@ -54,7 +54,6 @@ void check_arguments(std::string *argument)
 {
     if (argument->find("=") != std::string::npos)
     {
-
         std::cout << "[info]\t\tArgument: " << argument << " has a parameter!" << std::endl;
     }
     else
